@@ -1,16 +1,16 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { take, timer } from 'rxjs';
 
 import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
 import { LocalStorageService } from '../../../shared/services/local-storage.service';
+import { SearchFieldComponent } from '../../../shared/components/search-field/search-field.component';
 
 @Component({
 	selector: 'app-header',
 	standalone: true,
-	imports: [CommonModule, RouterModule],
+	imports: [CommonModule, RouterModule, SearchFieldComponent],
 	templateUrl: './header.component.html',
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent {
 	constructor(
@@ -24,4 +24,10 @@ export class HeaderComponent {
 			.pipe(take(1))
 			.subscribe(() => this.router.navigateByUrl('/login'));
 	}
+
+  search(query: string): void {
+    if (query?.trim()) {
+      this.router.navigate(['/search'], { queryParams: { query: query } });
+    }
+  }
 }

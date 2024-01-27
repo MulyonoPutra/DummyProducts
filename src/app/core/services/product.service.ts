@@ -1,5 +1,5 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable, catchError, throwError } from 'rxjs';
+import { Observable, catchError, map, throwError } from 'rxjs';
 import { Product, Products } from '../models/entity/product';
 
 import { HttpResponseEntity } from '../models/entity/http-response-entity';
@@ -23,6 +23,13 @@ export class ProductService {
 	findOne(id: string): Observable<Product> {
 		return this.http.get<Product>(`${this.env.url}/products/${id}`).pipe(catchError(this.handleError));
 	}
+
+  search(query: string): Observable<Products> {
+    return this.http.get<HttpResponseEntity<Products>>(`${this.env.url}/products/search?q=${query}`).pipe(
+      map((response) => response.products),
+      catchError(this.handleError),
+    );
+  }
 
 	public handleError(res: HttpErrorResponse) {
 		return throwError(() => new Error(res.error.message));
