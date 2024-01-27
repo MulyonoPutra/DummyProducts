@@ -91,18 +91,3 @@ export class AuthComponent implements OnInit {
 		});
 	}
 }
-
-// function unic(n) {
-//   for (let i = 1; i <= 30; i++) {
-//     if (i % 14 === 0 && i % 4 === 0) {
-//       console.log("Unictive Media");
-//     } else if (i % 4 === 0) {
-//       console.log("unictive");
-//     } else {
-//       console.log(i);
-//     }
-//   }
-
-// }
-
-// unic(30)
